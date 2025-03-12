@@ -1,11 +1,14 @@
-# Product Tracking Chaincode - Hyperledger Fabric
+# Asset Transfer
 
 ## Introduction
-This project implements a **Product Tracking Chaincode** for Hyperledger Fabric. The chaincode allows tracking of product status changes throughout the supply chain. It provides functionalities to:
-- Register a new product with an initial status.
-- Update the status of a product.
-- Query a product's current status and history.
-- List all products in the system.
+This project implements an **Asset Transfer Chaincode** for Hyperledger Fabric. The chaincode facilitates managing asset life cycles, including operations such as creating, reading, updating, and deleting assets. Additionally, users can query assets based on ownership.
+
+## Features
+- **Create Asset:** Adds a new asset to the ledger with an ID, name, owner, and value.
+- **Read Asset:** Retrieves asset details by its unique ID.
+- **Update Asset:** Modifies an asset's details, such as ownership or value.
+- **Delete Asset:** Removes an asset from the ledger.
+- **Query Assets by Owner:** Lists all assets owned by a specific user.
 
 ## Prerequisites
 Ensure the following dependencies are installed before setting up the network:
@@ -67,15 +70,14 @@ cd fabric-samples/test-network
 ```
 
 ### 3. Deploy the Chaincode
-
 ```sh
 ./network.sh deployCC -ccn basic -ccp ../path-to-chaincode -ccl go
 ```
-Replace ../path-to-chaincode with the exact path to your chaincode.
-You can also change the chaincode name (basic) to any name of your choice.
+Replace `../path-to-chaincode` with the exact path to your chaincode.
+You can also change the chaincode name (`basic`) to a name of your choice.
 
-### 4. Invoke and Query Chaincode
-#### Setup Environment Variables:
+### 4. Interacting with Chaincode
+#### Set up Environment Variables:
 ```sh
 export FABRIC_CFG_PATH=$PWD/../config/
 
@@ -90,28 +92,48 @@ export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.examp
 export CORE_PEER_ADDRESS=localhost:7051
 
 ```
-#### Register a Product:
+
+#### Create an Asset:
 ```sh
-peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" --peerAddresses localhost:9051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" -c '{"Args":["RegisterProduct", "Product-1", "Manufactured"]}'
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" --peerAddresses localhost:9051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" -c '{"function":"CreateAsset","Args":["asset1","Laptop","Ashish","3000"]}'
 ```
 
-#### Update Product Status:
+#### Read an Asset:
 ```sh
-peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" --peerAddresses localhost:9051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" -c '{"Args":["UpdateStatus", "Product-2", "Shipped"]}'
+peer chaincode query -C mychannel -n basic -c '{"function":"ReadAsset","Args":["asset1"]}'
 ```
 
-#### Query Product:
+#### Update an Asset:
 ```sh
-peer chaincode query -C mychannel -n basic -c '{"Args":["QueryProduct", "Product-1"]}'
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" --peerAddresses localhost:9051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" -c '{"function":"UpdateAsset","Args":["asset1","Gaming Laptop","Ashish","3500"]}'
 ```
 
-#### List All Products:
+#### Delete an Asset:
 ```sh
-peer chaincode query -C mychannel -n basic -c '{"Args":["ListAllProducts"]}'
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" --peerAddresses localhost:9051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" -c '{"Args":["DeleteAsset", "asset1"]}'
 ```
+
+#### Query Assets by Owner:
+```sh
+peer chaincode query -C mychannel -n basic -c '{"function":"QueryAssetsByOwner","Args":["Ashish"]}'
+
+```
+## 🤝 Contributing
+
+We welcome contribution! 🙌 Feel free to fork this project, open issues, or submit pull requests. Let’s build something amazing together! 🚀
+
+---
+
+## 📝 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)
+
+---
 
 ## Conclusion
-This chaincode enables secure and transparent tracking of product status changes in a supply chain network. Follow the setup steps carefully to deploy and test the functionality on Hyperledger Fabric.
+This chaincode enables secure and transparent asset management in a blockchain network. Follow the setup steps carefully to deploy and test the functionality on Hyperledger Fabric.
 
 For more details, refer to the official Hyperledger Fabric documentation: [Hyperledger Fabric Docs](https://hyperledger-fabric.readthedocs.io/en/latest/index.html).
 
