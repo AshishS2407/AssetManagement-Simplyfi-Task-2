@@ -1,7 +1,7 @@
-# Asset Transfer
+# Asset Management
 
 ## Introduction
-This project implements an **Asset Transfer Chaincode** for Hyperledger Fabric. The chaincode facilitates managing asset life cycles, including operations such as creating, reading, updating, and deleting assets. Additionally, users can query assets based on ownership.
+This project implements an **Asset Management Chaincode** for Hyperledger Fabric. The chaincode facilitates managing asset life cycles, including operations such as creating, reading, updating, and deleting assets. Additionally, users can query assets based on ownership.
 
 ## Features
 - **Create Asset:** Adds a new asset to the ledger with an ID, name, owner, and value.
