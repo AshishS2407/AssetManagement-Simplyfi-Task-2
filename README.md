@@ -10,6 +10,8 @@ This project implements an **Asset Transfer Chaincode** for Hyperledger Fabric. 
 - **Delete Asset:** Removes an asset from the ledger.
 - **Query Assets by Owner:** Lists all assets owned by a specific user.
 
+---
+
 ## Prerequisites
 Ensure the following dependencies are installed before setting up the network:
 
@@ -61,6 +63,8 @@ Copy Fabric binaries to the system path:
 sudo cp fabric-samples/bin/* /usr/local/bin
 ```
 
+---
+
 ### 2. Start the Test Network
 Navigate to the Fabric samples directory and start the network:
 ```sh
@@ -68,6 +72,7 @@ cd fabric-samples/test-network
 ./network.sh down
 ./network.sh up createChannel -ca
 ```
+---
 
 ### 3. Deploy the Chaincode
 ```sh
@@ -75,6 +80,8 @@ cd fabric-samples/test-network
 ```
 Replace `../path-to-chaincode` with the exact path to your chaincode.
 You can also change the chaincode name (`basic`) to a name of your choice.
+
+---
 
 ### 4. Interacting with Chaincode
 #### Set up Environment Variables:
@@ -118,6 +125,7 @@ peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.exa
 peer chaincode query -C mychannel -n basic -c '{"function":"QueryAssetsByOwner","Args":["Ashish"]}'
 
 ```
+---
 ## 🤝 Contributing
 
 We welcome contribution! 🙌 Feel free to fork this project, open issues, or submit pull requests. Let’s build something amazing together! 🚀
