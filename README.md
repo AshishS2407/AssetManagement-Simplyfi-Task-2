@@ -42,7 +42,7 @@ sudo apt install build-essential
 ```
 Verify installation:
 ```sh
-dpkg -l | grep build-essential
+dpkg -1 | grep build-essential
 ```
 
 ## Setting Up the Hyperledger Fabric Test Network
@@ -50,7 +50,10 @@ dpkg -l | grep build-essential
 ### 1. Download Fabric
 Execute the following commands in your terminal:
 ```sh
-curl -sSLO https://raw.githubusercontent.com/hyperledger/fabric/main/scripts/install-fabric.sh && chmod +x install-fabric.sh
+curl -sSLO https://raw.githubusercontent.com/hyperledger/fabric/main/scripts/install-fabric.sh 
+```
+```sh
+chmod +x install-fabric.sh
 ```
 
 Install Fabric and required dependencies:
