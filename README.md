@@ -68,7 +68,15 @@ sudo cp fabric-samples/bin/* /usr/local/bin
 
 ---
 
-### 2. Start the Test Network
+### 2. Clone the Repository
+```sh
+git@github.com:AshishS2407/AssetManagement-Simplyfi-Task-2.git
+```
+```sh
+cd AssetManagement-Simplyfi-Task-2
+```
+
+### 3. Start the Test Network
 Navigate to the Fabric samples directory and start the network:
 ```sh
 cd fabric-samples/test-network
@@ -77,7 +85,7 @@ cd fabric-samples/test-network
 ```
 ---
 
-### 3. Deploy the Chaincode
+### 4. Deploy the Chaincode
 ```sh
 ./network.sh deployCC -ccn basic -ccp ../path-to-chaincode -ccl go
 ```
@@ -86,7 +94,7 @@ You can also change the chaincode name (`basic`) to a name of your choice.
 
 ---
 
-### 4. Interacting with Chaincode
+### 5. Interacting with Chaincode
 #### Set up Environment Variables:
 ```sh
 export FABRIC_CFG_PATH=$PWD/../config/
